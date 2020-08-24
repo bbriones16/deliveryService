@@ -1,0 +1,65 @@
+run mysql :
+
+docker run --name briob-mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=test -e MYSQL_USER=sa -e MYSQL_PASSWORD=password -d mysql:5.7
+
+build delivery service application : 
+
+docker build . -t delivery-service
+
+run delivery service :
+
+docker run -d -p 8086:8086 --name delivery-service --link briob-mysql:mysql delivery-service
+
+
+list containers :
+
+docker container ls -a
+
+
+stop container : 
+
+docker stop <container_id>
+
+deleting  container :   
+
+docker rm <container_id>
+
+access container in bash mode : 
+
+docker exec -it <container_name> bash
+
+cat /etc/hosts
+
+
+
+
+
+
+MySql commands : 
+
+get into mysql:
+
+docker exec -it mysql_container_name mysql -uroot -p
+
+select the database : 
+
+USE Name-Of-The-Database
+
+get list of tables 
+
+show tables
+
+
+check mysql properties 
+
+docker inspect container-name-here
+
+create table pricing 
+(
+	priority integer not null, 
+	ruleName varchar(20), 
+	condition varchar(100), 
+	cost decimal(13,2), 
+	primary key (priority)
+)
+
